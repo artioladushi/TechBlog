@@ -2,7 +2,7 @@ const mongoose=require('mongoose');
 
 const profileSchema= new mongoose.Schema({
 
-    userName:{
+    username:{
         type:String,
         required:true
     },
@@ -18,7 +18,7 @@ const profileSchema= new mongoose.Schema({
     avatar:{
         type:String
     }
-    
+     
     
 },{timestamps:true});
 

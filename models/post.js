@@ -8,6 +8,11 @@ const postSchema= new mongoose.Schema({
         type:String,
         required:true
     },
+    category:{
+        type:String,
+        enum:['Frontend', 'Backend','Mobile', 'AI'],
+        default: 'Backend'
+    },
     author:{
             type: mongoose.Schema.Types.ObjectId,
             ref:User,
