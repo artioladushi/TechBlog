@@ -4,7 +4,7 @@ const jwt= require("jsonwebtoken");
 const generateToken =(userId)=>{
     return jwt.sign ({id:userId}, 'secret', {expiresIn:'1d'});};
 
-const register=async (username, email, password, avatar)=>{
+const register=async (username, email, password, profilePic)=>{
     const userExists= await User.findOne({ email: email });
     if (userExists) {
         throw new Error("This user exists");
@@ -14,7 +14,7 @@ const register=async (username, email, password, avatar)=>{
        username:username,
        email:email,
        password:password,
-       avatar:avatar
+       profilePic:profilePic
     });
     
     return await newUser.save();

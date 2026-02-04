@@ -10,8 +10,8 @@ const postSchema= new mongoose.Schema({
     },
     category:{
         type:String,
-        enum:['Frontend', 'Backend','Mobile', 'AI'],
-        default: 'Backend'
+        enum:['Frontend', 'Backend','Mobile', 'AI', 'Tech'],
+        default: 'Tech'
     },
     author:{
             type: mongoose.Schema.Types.ObjectId,

@@ -15,7 +15,7 @@ const profileSchema= new mongoose.Schema({
         type:String,
         required:true,
     },
-    avatar:{
+    profilePic:{
         type:String
     }
      
