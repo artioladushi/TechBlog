@@ -12,7 +12,7 @@ const commentSchema= new mongoose.Schema({
     },
     post:{
         type: mongoose.Schema.TypeObjectId,
-        ref:post,
+        ref: Post,
         required:true
     }
 },{

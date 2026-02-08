@@ -1,6 +1,6 @@
 const mongoose=require('mongoose');
 
-const profileSchema= new mongoose.Schema({
+const userSchema= new mongoose.Schema({
 
     username:{
         type:String,
