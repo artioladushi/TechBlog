@@ -1,9 +1,12 @@
 const User= require("../models/User");
 const jwt= require("jsonwebtoken");
 
-const generateToken =(userId)=>{
-    return jwt.sign ({id:userId}, 'secret', {expiresIn:'1d'});};
+// const generateToken =(userId)=>{
+//     return jwt.sign ({id:userId}, 'secret', {expiresIn:'1d'});};
 
+const generateToken= (userId)=>{
+    return jwt.sign ({ id:userId}, SECRET_OR_KEY, {expiresIn: JWT_EXPIRES})
+}
 const register=async (username, email, password, profilePic)=>{
     const userExists= await User.findOne({ email: email });
     if (userExists) {

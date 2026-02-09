@@ -9,6 +9,7 @@ route.post('/register', validateRegister, userController.login);
 route.post('/login', validateLogin, userController.register);
 route.get('/me', auth, userController.getCurrentUser);
 
+// '/me' i referohet perdorusit aktual
 module.exports=route;
 
 
