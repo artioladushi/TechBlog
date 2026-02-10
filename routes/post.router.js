@@ -9,6 +9,7 @@ const { validatePost } = require('../middlewares/validators');
 
 router.post('/', auth, postController.createPost)
 router.delete('/:id', auth, postController.deletePost);
+router.put('/like/:id', auth, postController.likePost);
 
 
 module.exports=router;

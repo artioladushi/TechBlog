@@ -30,8 +30,22 @@ const deletePost= async ( postId, userId)=>{
     return { message:"Post deleted successfully"}
 };
 
+const likePost= async (postId, userId)=>{
+    const post= await Post.findById(postId);
+    if(!post) {
+        throw new Error("Post not found");
+    }
+    const alreadyLiked= post.likes.find( like=> like.user.toString()===userId);
+    if (alreadyLiked){
+        post.likes=post.likes.filter(like=>like.user.toString()!==userId);
+    }else{
+        post.likes.unshift({user:userId});
+    }
+    await post.save();
+    return post.likes;
+}
 
 
 module.exports={
-    createPost, deletePost
+    createPost, deletePost, likePost
 }

@@ -13,7 +13,7 @@ const createPost= async (req,res)=>{
         });
     }
 
-}
+};
 
 const deletePost= async(req, res)=>{
 try{
@@ -25,11 +25,21 @@ try{
     }catch (err){
         res.status(500).json({message:'Failed to delete post', error:err.message})
     }
+};
+
+const likePost= async (req,res)=>{
+    try{
+        const likes= await postService.likePost(req.params.id, req.user.id);
+        return res.status(200).json(likes);
+    }catch(err){
+        res.status(500).json({error:err.message})
+    }
 }
 
 
 
 module.exports={
     createPost,
-    deletePost
+    deletePost,
+    likePost
 }

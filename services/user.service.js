@@ -63,4 +63,4 @@ const findCurrentUser = async (token) => {
     }
 };
 
-module.exports = { register, login, findUserByEmail, findUserById ,findCurrentUser };
+module.exports = { register, login, findUserByEmail, findUserById, findCurrentUser };
