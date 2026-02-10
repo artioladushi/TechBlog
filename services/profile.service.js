@@ -3,7 +3,7 @@ const Profile = require('../models/profile');
 
 
 const create=async(userId, profileData)=>{
-const user= await userService.findUser(userId);
+const user= await userService.findUserById(userId);
 if (!user){
     throw new Error("User not found!");
 }
@@ -31,7 +31,7 @@ const findCurrentProfile= async (userId)=>{
 }
 
 const updateProfile= async( userId, profileData)=>{
-    const profile= await profile.findOne({user:userId});
+    const profile= await Profile.findOne({user:userId});
     if (!profile) 
         {throw new Error("profile not found");
 }
@@ -41,7 +41,7 @@ return profile;
 };
 
 const deleteProfile= async (userId)=>{
-    const profile= await profile.findOneAndDelete({user:userId});
+    const profile= await Profile.findOneAndDelete({user:userId});
     if(!profile) throw new Error("Profile not found");
     return {message:"profile deleted succcessfully"};
 }

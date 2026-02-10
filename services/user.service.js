@@ -4,8 +4,11 @@ const jwt= require("jsonwebtoken");
 // const generateToken =(userId)=>{
 //     return jwt.sign ({id:userId}, 'secret', {expiresIn:'1d'});};
 
+const JWT_SECRET = process.env.SECRET_OR_KEY;
+const JWT_EXPIRES = process.env.JWT_EXPIRES;
+
 const generateToken= (userId)=>{
-    return jwt.sign ({ id:userId}, SECRET_OR_KEY, {expiresIn: JWT_EXPIRES})
+    return jwt.sign ({ id:userId}, JWT_SECRET, {expiresIn: JWT_EXPIRES})
 }
 const register=async (username, email, password, profilePic)=>{
     const userExists= await User.findOne({ email: email });
@@ -25,28 +28,39 @@ const register=async (username, email, password, profilePic)=>{
 
 const login = async (email, password) => {
     const user = await findUser(email);
-    if (user && user.password === password) {
-        const token = generateToken(user._id);
-        return {
-            user: user,
-            accessToken: token
-        };
-    }
-    return null;
+
+    if (!user) return null;
+
+    if (user.password !== password) return null;
+
+    const token = generateToken(user._id);
+
+    return {
+        user: {
+            _id: user._id,
+            username: user.username,
+            email: user.email,
+            profilePic: user.profilePic
+        },
+        accessToken: token
+    };
 };
 
-const findUser = async (email) => {
+const findUserByEmail = async (email) => {
     return await User.findOne({ email: email });
 };
 
-const findCurrentUser = async (token) => {
-    const decoded = jwt.verify(token, 'secret');
-    const userId = decoded.id;
-    const userCurrent = await User.findById(decoded.id).select("-password");
-    if (!userCurrent) {
-        throw new Error("User not found");
-    }
-    return userCurrent;
+const findUserById = async (id) => {
+    return await User.findById(id);
 };
 
-module.exports = { register, findUser, login, findCurrentUser };
+const findCurrentUser = async (token) => {
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        return await User.findById(decoded.id).select("-password"); 
+    } catch (err) {
+        throw new Error("Invalid or expired token");
+    }
+};
+
+module.exports = { register, login, findUserByEmail, findUserById ,findCurrentUser };
