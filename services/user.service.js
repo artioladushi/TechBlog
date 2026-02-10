@@ -27,7 +27,7 @@ const register=async (username, email, password, profilePic)=>{
 };
 
 const login = async (email, password) => {
-    const user = await findUser(email);
+    const user = await findUserByEmail(email);
 
     if (!user) return null;
 

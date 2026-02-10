@@ -19,6 +19,7 @@ try{
 
 
 }catch (err){
+    console.error("Error te MongoDB Save:", err.message);
     throw new Error("Could not save profile!");
 }
 }

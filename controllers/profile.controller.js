@@ -1,11 +1,16 @@
 const profileService = require('../services/profile.service');
 const userService = require('../services/user.service');
+const Profile = require('../models/profile');
+const mongoose = require('mongoose')
 
 const createProfile = async (req, res) => {
     // const token = req.header('x-auth-header');
     try {
         // const user = await userService.findCurrentUser(token);
         const profile = await profileService.create(req.user.id, req.body);
+
+        console.log("DATABASE-I AKTUAL:", mongoose.connection.name);
+        console.log("COLLECTION-I:", Profile.collection.name);
 
         return res.status(201).json(profile);
     } catch (err) {

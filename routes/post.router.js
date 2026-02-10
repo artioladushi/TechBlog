@@ -1,7 +1,14 @@
+const postController = require('../controllers/post.controller');
 const express= require ('express');
-const route = express.Router();
+const router = express.Router();
 
 const auth= require('../middlewares/authentication');
+
 const { validatePost } = require('../middlewares/validators');
 
-module.exports=route;
+
+router.post('/', auth, postController.createPost)
+router.delete('/:id', auth, postController.deletePost);
+
+
+module.exports=router;

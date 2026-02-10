@@ -14,6 +14,7 @@ mongoDbConnection.then(() => {
 app.use(express.json());
 app.use('/api/user', require('./routes/user.route'));
 app.use('/api/profile', require('./routes/profile.route'));
+app.use('/api/post', require('./routes/post.router'));
 
 app.listen(3000, () => {
     console.log("Server started on port 3000.");
