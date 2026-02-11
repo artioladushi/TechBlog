@@ -34,8 +34,27 @@ const deleteComment = async (commentId, userId) => {
     return result;
 };
 
+const likeComment= async(commentId, userId)=>{
+    const comment=await Comment.findById(commentId);
+
+    if(!comment){
+        throw new Error ("Comment not found");
+    }
+
+    const alreadyLiked= comment.likes.find(like=>like.user.toString()===userId);
+    if (alreadyLiked){
+        comment.likes=comment.likes.filter(like=>like.user.toString()!==userId);
+    }else{
+        comment.likes.unshift({user:userId});
+    }
+    
+    await comment.save();
+    return comment.likes;
+}
+
 module.exports={
     createComment,
-    deleteComment
+    deleteComment,
+    likeComment
 };
 

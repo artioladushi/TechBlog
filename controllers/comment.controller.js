@@ -22,11 +22,21 @@ const result=await commentService.deleteComment(commentId, userId);
 return res.status(200).json({message:'Comment deleted successfully', result})
 
     }catch(err){
-        res.status(500).json({message:'Failed to delete comment', error:err.message})
+        return res.status(500).json({message:'Failed to delete comment', error:err.message})
+    }
+};
+
+const likeComment= async(req, res)=>{
+    try{
+        const likes=await commentService.likeComment(req.params.id, req.user.id);
+        return res.status(200).json(likes);
+    }catch(err){
+        res.status(500).json({error:err.message});
     }
 }
 
 module.exports={
     createComment,
-    deleteComment
+    deleteComment,
+    likeComment
 }
