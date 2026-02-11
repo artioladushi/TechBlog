@@ -18,7 +18,7 @@ const validateRegister=[
     .isEmail().withMessage("Email must be in the right format"),
 
     body('password').
-    notEmpty().notEmpty().withMessage("Password is required")
+    notEmpty().withMessage("Password is required")
     .isLength({min:6}).withMessage("Password's length must be at least 6 characters"),
     validateRegistration
 ];
@@ -38,7 +38,7 @@ const validatePost = [
         .notEmpty().withMessage("Title is required")
         .isLength({ min: 5 }).withMessage("Title must be at least 5 characters long"),
     body('content')
-        .notEmpty().withMessage("Content is required")
+        .notEmpty().withMessage("Post content is required")
         .isLength({ min: 10 }).withMessage("Content is too short"),
     body('category')
         .isIn(['Frontend', 'Backend', 'Mobile', 'AI', 'Tech'])
@@ -46,8 +46,17 @@ const validatePost = [
     validateRegistration
 ];
 
+const validateComment=[
+    body('text')
+    .notEmpty().withMessage("Comment content is required")
+    .isString().withMessage("Comment must be string"),
+    validateRegistration
+]
+
 module.exports={
     validateRegister,
     validateLogin,
-    validatePost
+    validatePost,
+    validateComment
+
 };
