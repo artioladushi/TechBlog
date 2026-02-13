@@ -4,13 +4,9 @@ const Profile = require('../models/profile');
 const mongoose = require('mongoose')
 
 const createProfile = async (req, res) => {
-    // const token = req.header('x-auth-header');
     try {
-        // const user = await userService.findCurrentUser(token);
+    
         const profile = await profileService.create(req.user.id, req.body);
-
-        console.log("DATABASE-I AKTUAL:", mongoose.connection.name);
-        console.log("COLLECTION-I:", Profile.collection.name);
 
         return res.status(201).json(profile);
     } catch (err) {
@@ -22,9 +18,9 @@ const createProfile = async (req, res) => {
 };
 
 const getCurrentProfile = async (req, res) => {
-    // const token = req.header('x-auth-header');
+
     try {
-        // const user = await userService.findCurrentUser(token);
+       
         const profile = await profileService.findCurrentProfile(req.user.id, req.body);
 
         if (!profile) {
@@ -41,9 +37,8 @@ const getCurrentProfile = async (req, res) => {
 };
 
 const updateProfile = async (req, res)=>{
-    // const token = req.header('x-auth-header');
     try{
-        // const user= await userService.findCurrentUser(token);
+        
         const updatedProfile= await profileService.updateProfile(req.user.id, req.body);
         res.status(200).json(updatedProfile);
     }catch (err){
@@ -52,9 +47,9 @@ const updateProfile = async (req, res)=>{
 };
 
 const deleteProfile= async( req, res)=>{
-    // const token = req.header('x-auth-header');
+ 
     try{
-    //    const user= await userService.findCurrentUser(token);
+
        const result= await profileService.deleteProfile(req.user.id);
        res.status(200).json(result); 
     }catch(err){
