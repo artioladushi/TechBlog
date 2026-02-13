@@ -1,4 +1,4 @@
-const User= require("../models/User");
+const User= require("../models/user");
 const jwt= require("jsonwebtoken");
 
 // const generateToken =(userId)=>{
@@ -31,7 +31,11 @@ const login = async (email, password) => {
 
     if (!user) return null;
 
-    if (user.password !== password) return null;
+    // if (user.password !== password) return null; 
+    //sbon kjo mo me hashing se vec per string
+
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) return null;
 
     const token = generateToken(user._id);
 

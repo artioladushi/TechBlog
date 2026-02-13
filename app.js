@@ -20,7 +20,5 @@ app.use('/api/comment', require('./routes/comment.route'));
 app.listen(3000, () => {
     console.log("Server started on port 3000.");
 });
-const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '.env') });
-
-console.log("Test", process.env.SECRET_OR_KEY);
+// const path = require('path');
+// require('dotenv').config({ path: path.join(__dirname, '.env') });

@@ -1,4 +1,4 @@
-const User = require("../models/User");
+const User = require("../models/user");
 const userService = require('../services/user.service');
 
 const register = async(req, res)=>{
@@ -7,7 +7,7 @@ try{
     const user= await userService.register(username, email, password, profilePic);
     res.status(201).json(user);
 } catch(err){
-    res.status(400).json({message:"Couldn't register"
+    res.status(400).json({message:"Couldn't register", error:err.message
     });
 }
 };
